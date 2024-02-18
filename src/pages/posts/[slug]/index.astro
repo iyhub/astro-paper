@@ -19,7 +19,6 @@ export async function getStaticPaths() {
     props: { post },
   }));
 
-  console.log("postResult:", postResult);
   const pagePaths = getPageNumbers(posts.length).map(pageNum => ({
     params: { slug: String(pageNum) },
   }));

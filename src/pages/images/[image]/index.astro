@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import Layout from "../../../layouts/Layout.astro";
+import Main from "../../../layouts/Main.astro";
+import Tag from "../../../components/Tag.astro";
+import getUniqueTags from "../../../utils/getUniqueTags";
+import { SITE } from "../../../config";
+import { PostMateData } from "../../../types";
+
+const posts = await getCollection("blog");
+
+let tags = getUniqueTags(posts);
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const imageUrl = SITE.imageUrl + Astro.url.pathname.replace("/images/", "");
+
+const response = await fetch(imageUrl, { method: "HEAD" });
+const size = response.headers.get("Content-Length");
+const type = response.headers.get("Content-Type");
+
+console.log("===============0", response.headers);
+
+function handleImageLoad(e) {
+  console.log("=====>");
+  alert("----->");
+  console.log("h-h", e.target.naturalWidth);
+}
+---
+
+<Layout title={`image preview | ${SITE.title}`}>
+  <Header activeNav="" />
+  <Main pageTitle="Preview" pageDesc="Preview png logo">
+    <!--<span>preview -{lang}-</span>-->
+    <!--<h2>Lang:{lang}</h2>-->
+    <!--<h1>当前链接是：{Astro.url}</h1>-->
+    <!--<h1>当前链接路径名是：{Astro.url.pathname}</h1>-->
+    <!--<h1>当前链接源是：{Astro.url.origin}</h1>-->
+    <div
+      class="flex space-x-6 justify-around mx-auto w-full border-2 rounded-2xl border-dotted py-4"
+    >
+      <div class="flex flex-col space-y-4 items-center flex-grow min-w-72">
+        <img
+          src={`${imageUrl}`}
+          alt="2341"
+          class="w-64 h-64"
+          onLoad={handleImageLoad}
+        />
+        <h2>{type} | {size} B</h2>
+        <div class="flex items-center space-x-2">
+          <button class="outline rounded-3xl px-4 py-2">Download</button>
+          <button class="outline rounded-3xl px-4 py-2">Resize</button>
+        </div>
+        <span>(License: Absolutely Free to Use)</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center space-y-2 py-2">
+      <p class="indent-4">
+        You can use google logo png webinar optimizing for success google
+        business webinar high-quality image to inspire your logo work and create
+        more beautiful logos. These captivating visuals transcend the realm of
+        logos, seamlessly integrating into diverse digital landscapes, including
+        websites, magazine layouts, prints, presentations, graphics, and dynamic
+        video projects. Elevate your artistic ventures with google logo png
+        webinar optimizing for success google business webinar's versatile
+        imagery, and watch your creative concepts flourish into captivating
+        realities.
+      </p>
+    </div>
+  </Main>
+  <Footer />
+</Layout>

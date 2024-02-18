@@ -9,6 +9,7 @@ export type Site = {
   lightAndDarkMode: boolean;
   postPerPage: number;
   scheduledPostMargin: number;
+  imageUrl: string;
 };
 
 export type SocialObjects = {
@@ -17,3 +18,11 @@ export type SocialObjects = {
   active: boolean;
   linkTitle: string;
 }[];
+
+export type PostMateData = {
+  title: string;
+  subtitle: string;
+  slug: string;
+  content: string;
+  createAt: string;
+};

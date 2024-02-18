@@ -34,7 +34,7 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
         <img
           src={
             ogImage
-              ? ogImage
+              ? ogImage.toString()
               : "https://images.cute-drawings.com/logo-ig-png-32464.png"
           }
           alt={`${title} png logs`}

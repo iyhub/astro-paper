@@ -27,7 +27,6 @@ const {
 } = post.data;
 
 const { Content } = await post.render();
-console.log("-======>", Content);
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
